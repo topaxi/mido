@@ -51,8 +51,9 @@ def get_devices(api=None, **kwargs):
 
     input_names = set(rtmidi.MidiIn(rtapi=rtapi).get_ports())
     output_names = set(rtmidi.MidiOut(rtapi=rtapi).get_ports())
+    io_names = [x for x in input_names | output_names if x is not None]
 
-    for name in sorted(input_names | output_names):
+    for name in sorted(io_names):
         devices.append({'name': name,
                         'is_input': name in input_names,
                         'is_output': name in output_names,
